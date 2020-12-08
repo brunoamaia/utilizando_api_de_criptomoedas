@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" type="text/css" 
+  href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/flatly/bootstrap.min.css">
+
+
+
+  <title>CoinMarketCap</title>
+</head>
+<body>
+  <div class="jumbotron">
+    <h1>Uso de API para consultar propriedades de Criptomoedas</h1>
+    <p class="lead">Página criada para requisitar dados sobre criptomoedas para a API da CoinMarketCap.</p>
+    <p class="lead">Quando a página é iniciada, os dados são requisitados e posteriormente utilizados para a construçãoda tabela.
+      Após a consulta, os dados são salvos na seção do navegador.
+      Dessa forma, para as próximas ações ou carragamento da página, não é necessário utilizar a API 
+      (diminuindo o tráfego na rede e não "estourando" o limite de acesso a API).
+    </p>
+    <hr class="my-4">
+    <p>Devido a limitações da API utilizada, é necessário cumprir alguns pré-requisitos:</p>
+    <ul>
+      <li>  <p class="text-primary">Utilizar o navegador Google Chrome</p>  </li>
+      <li>  <p class="text-primary">Instalar  e ativar a extensão “Moesif Origin & CORS Changer”, que pode ser obtida pelo link a seguir:</p>  </li>
+    </ul>
+
+    <p class="lead">
+      <a
+        class="btn btn-primary btn-lg"
+        href="https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc"
+        role="button">
+        Instalar extensão
+      </a>
+    </p>
+
+    <p class="loading-mode"></p>
+  </div>
+
+  <table class="table table-hover">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col">Nome</th>
+        <th scope="col">Simbolo</th>
+        <th scope="col">Ranking</th>
+        <th scope="col">Criação</th>
+        <th scope="col">Ativa</th>
+      </tr>
+    </thead>
+    <tbody id="autocomplete"> </tbody>
+  </table>
+
+  <script src="./conexao.js"></script>
+</body>
+</html>
