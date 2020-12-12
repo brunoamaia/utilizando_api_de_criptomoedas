@@ -48,20 +48,32 @@ function insertInformations(page = 1) {
     currentPage = page
 
     
-    beginTable = (currentPage-1) * 10
+    beginTable = (currentPage-1) * numberOfLines
     
     let texto = ``
-    // pegar os valores das primeiras 10 moedas
-    for (let i = beginTable; i < (beginTable + numberOfLines) ;i++) {
+    let lastLine = beginTable + numberOfLines
+    if ( lastLine > apiData.data.length) {
+      lastLine = apiData.data.length
+    }
+    for (let i = beginTable; i < lastLine ;i++) {
+
+      let str = apiData.data[i].first_historical_data.split("T")
+
+      let ano = str[0].split('-')
+      let hora = str[1].split(':')
+      
       texto += `
         <tr class=" ${(i%2 === 0) ? 'table-dark' : 'table-light'}">
           <th scope="row">${apiData.data[i].name}</th>
           <td>${apiData.data[i].symbol}</td>
           <td>${apiData.data[i].rank}</td>
-          <td>${apiData.data[i].first_historical_data}</td>
-          <td>${(apiData.data[i].is_active == 1) ? 'sim' : 'não'}</td>
+          <td>${ano[2]}/${ano[1]}/${ano[0]} : ${hora[0]}h${hora[1]}</td>
+          <td>${apiData.data[i].id}</td>
         </tr>
       `
+
+      //<td>${(apiData.data[i].is_active == 1) ? 'sim' : 'não'}</td>
+
     }
     texto += ``
     document.getElementById("autocomplete").innerHTML = texto
@@ -92,7 +104,7 @@ function updateTableData(param) {
     });
   } else if (param == 4) {
     apiData.data.sort(function(a,b) {
-      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+      return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
     });
   } else if (param == 5) {
     apiData.data.sort(function(a,b) {
@@ -154,7 +166,7 @@ function InsertTablePagination(page = 1) {
   } else {
 
     if (page < 5) {
-      for (let i = 1; i <= 5; i++) {
+      for (let i = 1; i < 6; i++) {
         insertNormalPageNumber(i)
       }
       insertDotPageNumber()
@@ -194,4 +206,18 @@ function InsertTablePagination(page = 1) {
   
 }
 
+function itemsPerPage(nlines=10) {
+  numberOfLines = nlines
 
+  document.querySelector('.itensButton').innerHTML = `
+    <button type="button" class="btn btn-info ${(nlines == 10) ? 'disabled':''}" onclick="itemsPerPage()">10</button>
+    <button type="button" class="btn btn-info ${(nlines == 25) ? 'disabled':''}" onclick="itemsPerPage(25)">25</button>
+    <button type="button" class="btn btn-info ${(nlines == 50) ? 'disabled':''}" onclick="itemsPerPage(50)">50</button>
+    <button type="button" class="btn btn-info ${(nlines == 100) ? 'disabled':''}" onclick="itemsPerPage(100)">100</button>
+    <button type="button" class="btn btn-info ${(nlines == 200) ? 'disabled':''}" onclick="itemsPerPage(200)">200</button>
+    <button type="button" class="btn btn-info ${(nlines == 500) ? 'disabled':''}" onclick="itemsPerPage(500)">500</button>
+  `
+  insertInformations()
+}
+
+document.querySelector('.infos').innerHTML = `<h4> ${apiData.data.length} </h4>`
