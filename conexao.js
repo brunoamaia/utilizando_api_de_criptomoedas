@@ -72,71 +72,48 @@ function insertInformations(page = 1) {
 
 }
 
-/*
 function updateTableData(param) {
 
-  let ordena  = []
   if (param == 0) {
-    ordena  = apiData.data.sort(function(a,b) {
+    apiData.data.sort(function(a,b) {
       return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
     });
   } else if (param == 1) {
-    ordena  = apiData.data.sort(function(a,b) {
+    apiData.data.sort(function(a,b) {
       return a.symbol < b.symbol ? -1 : a.symbol > b.symbol ? 1 : 0;
     });
   } else if (param == 2) {
-    ordena  = apiData.data.sort(function(a,b) {
+    apiData.data.sort(function(a,b) {
       return a.rank < b.rank ? -1 : a.rank > b.rank ? 1 : 0;
     });
   } else if (param == 3) {
-    ordena  = apiData.data.sort(function(a,b) {
+    apiData.data.sort(function(a,b) {
       return a.first_historical_data < b.first_historical_data ? -1 : a.first_historical_data > b.first_historical_data ? 1 : 0;
     });
   } else if (param == 4) {
-    ordena  = apiData.data.sort(function(a,b) {
+    apiData.data.sort(function(a,b) {
       return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
     });
   } else if (param == 5) {
-    ordena  = apiData.data.sort(function(a,b) {
+    apiData.data.sort(function(a,b) {
       return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
     });
   } else if (param == 6) {
-    ordena  = apiData.data.sort(function(a,b) {
+    apiData.data.sort(function(a,b) {
       return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
     });
   } else if (param == 7) {
-    ordena  = apiData.data.sort(function(a,b) {
+    apiData.data.sort(function(a,b) {
       return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
     });
   } else if (param == 8) {
-    ordena  = apiData.data.sort(function(a,b) {
+    apiData.data.sort(function(a,b) {
       return a.rank < b.rank ? -1 : a.rank > b.rank ? 1 : 0;
     });
   }
 
-
-  let texto = ``
-  // pegar os valores das primeiras 10 moedas
-  for (let i = 0; i < numberOfLines ;i++) {
-    
-    texto += `
-      <tr class=" ${(i%2 === 0) ? 'table-dark' : 'table-light'}">
-        <th scope="row">${ordena[i].name}</th>
-        <td>${ordena[i].symbol}</td>
-        <td>${ordena[i].rank}</td>
-        <td>${ordena[i].first_historical_data}</td>
-        <td>${(ordena[i].is_active == 1) ? 'sim' : 'não'}</td>
-      </tr>
-    `
-  }
-  texto += ``
-  document.getElementById("autocomplete").innerHTML = texto
+  insertInformations()
 }
-*/
-
-/*pessoas.sort(function(a,b) {
-    return a.nome < b.nome ? -1 : a.nome > b.nome ? 1 : 0;
-}) */
 
 function autoInsertInformations() {
   insertInformations()
@@ -213,12 +190,7 @@ function InsertTablePagination(page = 1) {
     </li>
     </ul></div>
   `
-  document.querySelector(".tablePagination").innerHTML = ` <p class="lead text-danger"> 
-      Quantidade de linhas  = ${apiData.data.length} <br>
-      Quantidade de Páginas  = ${ Math.ceil(apiData.data.length/numberOfLines)} <br>
-    <\p>
-    ${pages}
-  `
+  document.querySelector(".tablePagination").innerHTML = ` ${pages} `
   
 }
 
