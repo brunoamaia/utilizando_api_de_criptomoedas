@@ -43,15 +43,98 @@
   <table class="table table-hover">
     <thead>
       <tr class="table-primary">
-        <th scope="col">Nome</th>
-        <th scope="col">Simbolo</th>
-        <th scope="col">Ranking</th>
-        <th scope="col">Criação</th>
-        <th scope="col">Ativa</th>
+        <th scope="col" onclick="updateTableData(0)">Nome</th>
+        <th scope="col" onclick="updateTableData(1)">Simbolo</th>
+        <th scope="col" onclick="updateTableData(2)">Ranking</th>
+        <th scope="col" onclick="updateTableData(3)">Criação</th>
+        <th scope="col" onclick="updateTableData(4)">Ativa</th>
       </tr>
     </thead>
     <tbody id="autocomplete"> </tbody>
   </table>
+
+  <div class="tablePagination"></div>
+
+  
+  <!--
+  <div>
+    <ul class="pagination pagination-lg">
+      <li class="page-item disabled">
+        <a class="page-link" href="#">&laquo;</a>
+      </li>
+      <li class="page-item active">
+        <a class="page-link" href="#">1</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">2</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">3</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">4</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">5</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">&raquo;</a>
+      </li>
+    </ul>
+  </div>
+  -->  
+
+  <button type="button" class="btn btn-primary btn-lg" onclick="updateTableData(8)">Atualizar tabela</button>
+
+
+
+  <!--
+  <div class="form-group">
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" disabled="" checked="" id="name">
+      <label class="custom-control-label" for="name">name</label>
+    </div>
+
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
+      <label class="custom-control-label" for="customSwitch1">first_historical_data</label>
+    </div>
+
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
+      <label class="custom-control-label" for="customSwitch1">id</label>
+    </div>
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
+      <label class="custom-control-label" for="customSwitch1">is_active</label>
+    </div>
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
+      <label class="custom-control-label" for="customSwitch1">last_historical_data</label>
+    </div>
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
+      <label class="custom-control-label" for="customSwitch1">platform</label>
+    </div>
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
+      <label class="custom-control-label" for="customSwitch1">rank</label>
+    </div>
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
+      <label class="custom-control-label" for="customSwitch1">slug</label>
+    </div>
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
+      <label class="custom-control-label" for="customSwitch1">symbol</label>
+    </div>
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
+      <label class="custom-control-label" for="customSwitch1">Tooo</label>
+    </div>
+
+  </div>
+  -->
 
   <script src="./conexao.js"></script>
 </body>
