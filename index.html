@@ -55,13 +55,13 @@
 
 
   <table class="table table-hover">
-    <thead>
+    <thead class="columnsName" >
       <tr class="table-primary">
         <th scope="col" onclick="updateTableData(0)">Nome</th>
         <th scope="col" onclick="updateTableData(1)">Simbolo</th>
         <th scope="col" onclick="updateTableData(2)">Ranking</th>
-        <th scope="col" onclick="updateTableData(3)">Criação</th>
-        <th scope="col" onclick="updateTableData(4)">ID</th>
+        <th scope="col" onclick="updateTableData(3)">ID</th>
+        <th scope="col" onclick="updateTableData(4)">Criação</th>
       </tr>
     </thead>
     <tbody id="autocomplete"> </tbody>
@@ -71,57 +71,53 @@
 
 
   <div class="infos"></div>
-  <button type="button" class="btn btn-primary btn-lg" onclick="display()">Atualizar tabela</button>
 
 
 
-  <!--
-  <div class="form-group">
-    <div class="custom-control custom-switch">
-      <input type="checkbox" class="custom-control-input" disabled="" checked="" id="name">
-      <label class="custom-control-label" for="name">name</label>
-    </div>
+  <form id="columnsArray" action="" >
+    <fieldset>
+    
+      <div class="form-group">
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" disabled="" checked="" id="name">
+          <label class="custom-control-label" for="name">nome</label>
+        </div>
+        
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="symbol" checked="">
+          <label class="custom-control-label" for="symbol">simbolo</label>
+        </div>
+        
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="rank" checked="">
+          <label class="custom-control-label" for="rank">ranking</label>
+        </div>
+        
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="id" checked="">
+          <label class="custom-control-label" for="id">id</label>
+        </div>
+        
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="beginData" checked="">
+          <label class="custom-control-label" for="beginData">criação</label>
+        </div>
 
-    <div class="custom-control custom-switch">
-      <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
-      <label class="custom-control-label" for="customSwitch1">first_historical_data</label>
-    </div>
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="lastData" checked="">
+          <label class="custom-control-label" for="lastData">ultima atividade</label>
+        </div>
 
-    <div class="custom-control custom-switch">
-      <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
-      <label class="custom-control-label" for="customSwitch1">id</label>
-    </div>
-    <div class="custom-control custom-switch">
-      <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
-      <label class="custom-control-label" for="customSwitch1">is_active</label>
-    </div>
-    <div class="custom-control custom-switch">
-      <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
-      <label class="custom-control-label" for="customSwitch1">last_historical_data</label>
-    </div>
-    <div class="custom-control custom-switch">
-      <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
-      <label class="custom-control-label" for="customSwitch1">platform</label>
-    </div>
-    <div class="custom-control custom-switch">
-      <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
-      <label class="custom-control-label" for="customSwitch1">rank</label>
-    </div>
-    <div class="custom-control custom-switch">
-      <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
-      <label class="custom-control-label" for="customSwitch1">slug</label>
-    </div>
-    <div class="custom-control custom-switch">
-      <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
-      <label class="custom-control-label" for="customSwitch1">symbol</label>
-    </div>
-    <div class="custom-control custom-switch">
-      <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
-      <label class="custom-control-label" for="customSwitch1">Tooo</label>
-    </div>
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="slug" checked="">
+          <label class="custom-control-label" for="slug">nome site</label>
+        </div>
+      </div>
+      
+      <button type="button" class="btn btn-primary" onclick="array()">Atualizar</button>
 
-  </div>
-  -->
+    </fieldset>
+  </form>
 
   <script src="./conexao.js"></script>
 </body>

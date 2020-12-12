@@ -6,6 +6,17 @@ let numberOfLines = 10
 let beginTable = 0
 let currentPage = 1
 
+
+let statusColumns = {
+  name: true,
+  symbol: true,
+  rank: true,
+  id: true,
+  first_historical_data: true,
+  last_historical_data: false,
+  slug: false,
+}
+
 // Se os dados não foram requisitados, a api é chamada
 if (!sessionStorage.getItem('apiData')) {
   dataCall = 'Dados carregados pela API'
@@ -56,26 +67,40 @@ function insertInformations(page = 1) {
       lastLine = apiData.data.length
     }
     for (let i = beginTable; i < lastLine ;i++) {
+      texto += `<tr class=" ${(i%2 === 0) ? 'table-light' : 'table-dark'}">`
 
-      let str = apiData.data[i].first_historical_data.split("T")
+      if (statusColumns.name) {
+        texto += `<th scope="row">${apiData.data[i].name}</th>`
+      } 
+      if (statusColumns.symbol) {
+        texto += `<td>${apiData.data[i].symbol}</td>`
+      } 
+      if (statusColumns.rank) {
+        texto += `<td>${apiData.data[i].rank}</td>`
+      } 
+      if (statusColumns.id) {
+        texto += `<td>${apiData.data[i].id}</td>`
+      } 
+      if (statusColumns.first_historical_data) {
+        let str = apiData.data[i].first_historical_data.split("T")
+        let ano = str[0].split('-')
+        let hora = str[1].split(':')
 
-      let ano = str[0].split('-')
-      let hora = str[1].split(':')
-      
-      texto += `
-        <tr class=" ${(i%2 === 0) ? 'table-dark' : 'table-light'}">
-          <th scope="row">${apiData.data[i].name}</th>
-          <td>${apiData.data[i].symbol}</td>
-          <td>${apiData.data[i].rank}</td>
-          <td>${ano[2]}/${ano[1]}/${ano[0]} : ${hora[0]}h${hora[1]}</td>
-          <td>${apiData.data[i].id}</td>
-        </tr>
-      `
+        texto += `<td>${ano[2]}/${ano[1]}/${ano[0]} : ${hora[0]}h${hora[1]}</td>`
+      } 
+      if (statusColumns.last_historical_data) {
+        let str = apiData.data[i].last_historical_data.split("T")
+        let ano = str[0].split('-')
+        let hora = str[1].split(':')
 
-      //<td>${(apiData.data[i].is_active == 1) ? 'sim' : 'não'}</td>
+        texto += `<td>${ano[2]}/${ano[1]}/${ano[0]} : ${hora[0]}h${hora[1]}</td>`
+      } 
+      if (statusColumns.slug) {
+        texto += `<td>${apiData.data[i].slug}</td>`
+      }
 
+      texto += ` </tr>`
     }
-    texto += ``
     document.getElementById("autocomplete").innerHTML = texto
   
     InsertTablePagination(page)
@@ -220,4 +245,45 @@ function itemsPerPage(nlines=10) {
   insertInformations()
 }
 
-document.querySelector('.infos').innerHTML = `<h4> ${apiData.data.length} </h4>`
+function array() {
+  statusColumns.name = document.querySelector('#name').checked
+  statusColumns.symbol = document.querySelector('#symbol').checked
+  statusColumns.rank = document.querySelector('#rank').checked
+  statusColumns.id = document.querySelector('#id').checked
+  statusColumns.first_historical_data = document.querySelector('#beginData').checked
+  statusColumns.last_historical_data = document.querySelector('#lastData').checked
+  statusColumns.slug = document.querySelector('#slug').checked
+
+
+
+  let label = `<tr class="table-primary">`
+
+  if (statusColumns.name) {
+    label += `<th scope="col" onclick="updateTableData(0)">Nome</th>`
+  } 
+  if (statusColumns.symbol) {
+    label += `<th scope="col" onclick="updateTableData(1)">Simbolo</th>`
+  } 
+  if (statusColumns.rank) {
+    label += `<th scope="col" onclick="updateTableData(2)">Ranking</th>`
+  } 
+  if (statusColumns.id) {
+    label += `<th scope="col" onclick="updateTableData(3)">ID</th>`
+  } 
+  if (statusColumns.first_historical_data) {
+    label += `<th scope="col" onclick="updateTableData(4)">Criação</th>`
+  } 
+  if (statusColumns.last_historical_data) {
+    label += `<th scope="col" onclick="updateTableData(5)">Ultima Atividade</th>`
+  } 
+  if (statusColumns.slug) {
+    label += `<th scope="col" onclick="updateTableData(6)">Nome site</th>`
+  }
+  label += `</tr></thead>`
+
+  document.querySelector('.columnsName').innerHTML = label
+
+  insertInformations()
+}
+
+// document.querySelector('.infos').innerHTML = `<h4> ${apiData.data.length} </h4>`
