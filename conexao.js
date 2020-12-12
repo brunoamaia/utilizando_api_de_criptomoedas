@@ -1,9 +1,12 @@
 var apiData = {}
 
+var dataCall = ''
+
 // Se os dados não foram requisitados, a api é chamada
 if (!sessionStorage.getItem('apiData')) {
   console.log('Api chamada')
-  document.querySelector(".loading-mode").innerHTML = ' <p class="lead text-danger"> Dados carregados pela API <\p>'
+  dataCall = 'Dados carregados pela API'
+
   let apiKey = {key: '5e58f31a-337d-4b9b-94ac-366510957a93'}
   // Get Fetch Requisition
   fetch('https://pro-api.coinmarketcap.com/v1/cryptocurrency/map?CMC_PRO_API_KEY='+apiKey.key)
@@ -20,15 +23,22 @@ if (!sessionStorage.getItem('apiData')) {
       autoInsertInformations()  
     })
     .catch((error) => {
+      dataCall = 'Os dados Não Foram carregados <br> Verifique os pré-requisitos'
+      document.querySelector(".loading-mode").innerHTML = `
+        <p class="lead text-danger">
+        Os dados Não Foram carregados! <br> Verifique os pré-requisitos!
+        <\p>
+      `
       console.log(error.message);
     })
 } else {
   console.log('usando dados da Sessão do navegador')
-  document.querySelector(".loading-mode").innerHTML = ' <p class="lead text-danger"> Dados carregados da seção local <\p>'
+  dataCall = 'Dados carregados da seção local'
+
   apiData = JSON.parse(sessionStorage.getItem('apiData'))
   insertInformations()
 }
-
+document.querySelector(".loading-mode").innerHTML = ` <p class="lead text-danger"> ${dataCall}<\p>`
 
 function insertInformations() {
   var texto = ``
