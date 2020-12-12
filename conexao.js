@@ -42,23 +42,34 @@ if (!sessionStorage.getItem('apiData')) {
 }
 document.querySelector(".loading-mode").innerHTML = ` <p class="lead text-danger"> ${dataCall}<\p>`
 
-function insertInformations() {
-  let texto = ``
-  // pegar os valores das primeiras 10 moedas
-  for (let i = 0; i < numberOfLines ;i++) {
+function insertInformations(page = 1) {
+
+  if (page == 1 || page != currentPage) {
+    currentPage = page
+
     
-    texto += `
-      <tr class=" ${(i%2 === 0) ? 'table-dark' : 'table-light'}">
-        <th scope="row">${apiData.data[i].name}</th>
-        <td>${apiData.data[i].symbol}</td>
-        <td>${apiData.data[i].rank}</td>
-        <td>${apiData.data[i].first_historical_data}</td>
-        <td>${(apiData.data[i].is_active == 1) ? 'sim' : 'não'}</td>
-      </tr>
-    `
+    beginTable = (currentPage-1) * 10
+    
+    let texto = ``
+    // pegar os valores das primeiras 10 moedas
+    for (let i = beginTable; i < (beginTable + numberOfLines) ;i++) {
+      texto += `
+        <tr class=" ${(i%2 === 0) ? 'table-dark' : 'table-light'}">
+          <th scope="row">${apiData.data[i].name}</th>
+          <td>${apiData.data[i].symbol}</td>
+          <td>${apiData.data[i].rank}</td>
+          <td>${apiData.data[i].first_historical_data}</td>
+          <td>${(apiData.data[i].is_active == 1) ? 'sim' : 'não'}</td>
+        </tr>
+      `
+    }
+    texto += ``
+    document.getElementById("autocomplete").innerHTML = texto
+  
+    InsertTablePagination(page)
   }
-  texto += ``
-  document.getElementById("autocomplete").innerHTML = texto
+
+
 }
 
 /*
@@ -138,7 +149,7 @@ function InsertTablePagination(page = 1) {
   let pages = `<div>
     <ul class="pagination pagination-lg">
     <li class="page-item ${(page == 1) ? 'disabled' : ''} ">
-      <a class="page-link" onclick="InsertTablePagination(${1})">&laquo;</a>
+      <a class="page-link" onclick="insertInformations(${1})">&laquo;</a>
     </li>
   `
 
@@ -146,7 +157,7 @@ function InsertTablePagination(page = 1) {
   function insertNormalPageNumber(number) {
     pages += `
       <li ${(number == page) ? 'class="page-item active"' :'class="page-item"' }>
-        <a class="page-link" onclick="InsertTablePagination(${number})">${number}</a>
+        <a class="page-link" onclick="insertInformations(${number})">${number}</a>
       </li>
     `
   }
@@ -172,7 +183,7 @@ function InsertTablePagination(page = 1) {
       insertDotPageNumber()
       insertNormalPageNumber(lastPageNumber)
 
-    } else if (page < lastPageNumber-4 ) {
+    } else if (page < lastPageNumber-3 ) {
       insertNormalPageNumber(1)
       insertDotPageNumber()
 
@@ -198,14 +209,10 @@ function InsertTablePagination(page = 1) {
   
   pages += `
     <li class="page-item ${(page == lastPageNumber) ? 'disabled' : ''}">
-      <a class="page-link" onclick="InsertTablePagination(${lastPageNumber})">&raquo;</a>
+      <a class="page-link" onclick="insertInformations(${lastPageNumber})">&raquo;</a>
     </li>
     </ul></div>
   `
-
-
-
-  
   document.querySelector(".tablePagination").innerHTML = ` <p class="lead text-danger"> 
       Quantidade de linhas  = ${apiData.data.length} <br>
       Quantidade de Páginas  = ${ Math.ceil(apiData.data.length/numberOfLines)} <br>
@@ -216,7 +223,3 @@ function InsertTablePagination(page = 1) {
 }
 
 
-
-
-
-window.onload = InsertTablePagination()
