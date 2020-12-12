@@ -39,9 +39,9 @@ if (!sessionStorage.getItem('apiData')) {
     .catch((error) => {
       dataCall = 'Os dados Não Foram carregados <br> Verifique os pré-requisitos'
       document.querySelector(".loading-mode").innerHTML = `
-        <p class="lead text-danger">
+        <h3 class="text-success">
         Os dados Não Foram carregados! <br> Verifique os pré-requisitos!
-        <\p>
+        <\h3>
       `
       console.log(error.message);
     })
@@ -51,7 +51,7 @@ if (!sessionStorage.getItem('apiData')) {
   apiData = JSON.parse(sessionStorage.getItem('apiData'))
   insertInformations()
 }
-document.querySelector(".loading-mode").innerHTML = ` <p class="lead text-danger"> ${dataCall}<\p>`
+document.querySelector(".loading-mode").innerHTML = ` <h3 class="text-success"> ${dataCall}<\h3>`
 
 function insertInformations(page = 1) {
 
@@ -106,6 +106,7 @@ function insertInformations(page = 1) {
     InsertTablePagination(page)
   }
 
+  asjustes()
 
 }
 
@@ -125,27 +126,25 @@ function updateTableData(param) {
     });
   } else if (param == 3) {
     apiData.data.sort(function(a,b) {
-      return a.first_historical_data < b.first_historical_data ? -1 : a.first_historical_data > b.first_historical_data ? 1 : 0;
+      return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
     });
   } else if (param == 4) {
     apiData.data.sort(function(a,b) {
-      return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+      return (
+        a.first_historical_data < b.first_historical_data ? 
+        -1 : a.first_historical_data > b.first_historical_data ? 1 : 0
+      )
     });
   } else if (param == 5) {
     apiData.data.sort(function(a,b) {
-      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+      return (
+        a.last_historical_data < b.last_historical_data ? 
+        -1 : a.last_historical_data > b.last_historical_data ? 1 : 0
+      )
     });
   } else if (param == 6) {
     apiData.data.sort(function(a,b) {
-      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
-    });
-  } else if (param == 7) {
-    apiData.data.sort(function(a,b) {
-      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
-    });
-  } else if (param == 8) {
-    apiData.data.sort(function(a,b) {
-      return a.rank < b.rank ? -1 : a.rank > b.rank ? 1 : 0;
+      return a.slug < b.slug ? -1 : a.slug > b.slug ? 1 : 0;
     });
   }
 
@@ -235,12 +234,42 @@ function itemsPerPage(nlines=10) {
   numberOfLines = nlines
 
   document.querySelector('.itensButton').innerHTML = `
-    <button type="button" class="btn btn-info ${(nlines == 10) ? 'disabled':''}" onclick="itemsPerPage()">10</button>
-    <button type="button" class="btn btn-info ${(nlines == 25) ? 'disabled':''}" onclick="itemsPerPage(25)">25</button>
-    <button type="button" class="btn btn-info ${(nlines == 50) ? 'disabled':''}" onclick="itemsPerPage(50)">50</button>
-    <button type="button" class="btn btn-info ${(nlines == 100) ? 'disabled':''}" onclick="itemsPerPage(100)">100</button>
-    <button type="button" class="btn btn-info ${(nlines == 200) ? 'disabled':''}" onclick="itemsPerPage(200)">200</button>
-    <button type="button" class="btn btn-info ${(nlines == 500) ? 'disabled':''}" onclick="itemsPerPage(500)">500</button>
+    <button type="button" 
+      class="btn btn-info ${(nlines == 10) ? 'disabled':''}"
+      onclick="itemsPerPage()"
+    >
+      10
+    </button>
+    <button type="button" 
+      class="btn btn-info ${(nlines == 25) ? 'disabled':''}"
+      onclick="itemsPerPage(25)"
+    >
+      25
+    </button>
+    <button type="button" 
+      class="btn btn-info ${(nlines == 50) ? 'disabled':''}"
+      onclick="itemsPerPage(50)"
+    >
+      50
+    </button>
+    <button type="button" 
+      class="btn btn-info ${(nlines == 100) ? 'disabled':''}"
+      onclick="itemsPerPage(100)"
+    >
+      100
+    </button>
+    <button type="button" 
+      class="btn btn-info ${(nlines == 200) ? 'disabled':''}"
+      onclick="itemsPerPage(200)"
+    >
+      200
+    </button>
+    <button type="button" 
+      class="btn btn-info ${(nlines == 500) ? 'disabled':''}"
+      onclick="itemsPerPage(500)"
+    >
+      500
+    </button>
   `
   insertInformations()
 }
@@ -284,6 +313,39 @@ function array() {
   document.querySelector('.columnsName').innerHTML = label
 
   insertInformations()
+}
+
+
+function asjustes(){
+
+  
+  if (statusColumns.first_historical_data || statusColumns.last_historical_data) {
+    document.querySelector('.infos').innerHTML = `
+    <br> <br>
+    <h5> Os horários apresentados são da região UTC+0 </h5>
+    <h5> Para converter para o horário de Brasília, diminua 3H00 </h5>
+  `
+  } else {
+    document.querySelector('.infos').innerHTML = ''
+  }
+
+  if (dataCall == 'Dados carregados da seção local') {
+    document.querySelector('.resetdata').innerHTML = `
+    <button type="button" class="btn btn-info" onclick="removeData()">Remover os dados do Navegador </button>
+    <br>
+  `
+  } else {
+    document.querySelector('.resetdata').innerHTML = ''
+  }
+}
+
+
+function removeData(){
+  sessionStorage.removeItem('apiData')
+
+  if (window.confirm("Você realmente quer apagar os dados locias?")) { 
+    location.reload()
+  }
 }
 
 // document.querySelector('.infos').innerHTML = `<h4> ${apiData.data.length} </h4>`

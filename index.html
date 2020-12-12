@@ -15,17 +15,59 @@
 <body>
   <div class="jumbotron">
     <h1>Uso de API para consultar propriedades de Criptomoedas</h1>
-    <p class="lead">Página criada para requisitar dados sobre criptomoedas para a API da CoinMarketCap.</p>
-    <p class="lead">Quando a página é iniciada, os dados são requisitados e posteriormente utilizados para a construçãoda tabela.
+    <p class="lead">Página criada para requisitar dados sobre criptomoedas para a 
+      API da <a href="https://coinmarketcap.com/api/">Coin Market Cap</a>.</p>
+    <p class="lead">Quando a página é iniciada, os dados são requisitados e posteriormente utilizados para a 
+      construçãoda tabela.
       Após a consulta, os dados são salvos na seção do navegador.
       Dessa forma, para as próximas ações ou carragamento da página, não é necessário utilizar a API 
       (diminuindo o tráfego na rede e não "estourando" o limite de acesso a API).
     </p>
-    <hr class="my-4">
-    <p>Devido a limitações da API utilizada, é necessário cumprir alguns pré-requisitos:</p>
+    <p class="lead">A estética/formatação da página foi realizada com o estilo 
+      <a href="https://bootswatch.com/flatly/">Flatly (bootstrap)</a> .
+      O modelo pode apresentar algumas alterações indesejadas, 
+      mas são do próprio modelo utilizado.
+    </p>
+    <p class="lead"> Todas as ações/interações da página foram construidas apenas com JavaScript. 
+      Inclusive o acesso/requisição à API.
+    </p>
+
+    <h5 class="lead">O projeto apresenta as seguintes funcionalidades:</h5>
     <ul>
-      <li>  <p class="text-primary">Utilizar o navegador Google Chrome</p>  </li>
-      <li>  <p class="text-primary">Instalar  e ativar a extensão “Moesif Origin & CORS Changer”, que pode ser obtida pelo link a seguir:</p>  </li>
+      <li>  
+        <h5 class="text-primary">Informa de onde os dados foram carregados 
+          (API ou seção do navegador);
+        </h5>  
+      </li>
+      <li>  
+        <h5 class="text-primary"> Pode remover/adicionar colunas na tabela (final da página);</h5> 
+      </li>
+      <li>  
+        <h5 class="text-primary"> 
+          Ordenar os dados de forma cresecente nas colunas (clique no nome da coluna);
+        </h5> 
+      </li>
+      <li>  
+        <h5 class="text-primary"> 
+          Mudar a quantidade de itens mostrados na tabela
+        </h5> 
+      </li>
+    </ul>
+
+    <p class="lead">Como está sendo acessada a versão grauita da API, apenas algumas informações são enviadas. </p>
+    <p class="lead"></p>
+
+    <hr class="my-4">
+    <h5>Devido a limitações da API utilizada, é necessário cumprir alguns pré-requisitos:</h5>
+    <ul>
+      <li>  <h5 class="text-primary">Utilizar o navegador 
+        <span class="lead text-danger">Google Chrome</span> no 
+        <span class="lead text-danger">Computador</span>;</h5> 
+      </li>
+      <li>  <h5 class="text-primary"> <span class="lead text-danger">Instalar</span> e 
+        <span class="lead text-danger">ativar a extensão</span> “Moesif Origin & CORS Changer”, 
+        que pode ser obtida pelo link a seguir:</h5> 
+      </li>
     </ul>
 
     <p class="lead">
@@ -37,7 +79,7 @@
       </a>
     </p>
 
-    <p class="loading-mode"></p>
+    <div class="loading-mode"></div>
   </div>
 
   <h4>Itens por página</h4>
@@ -71,53 +113,48 @@
 
 
   <div class="infos"></div>
+  <br>
+  <div class="resetdata"></div>
 
-
-
+  <br>
+  <h3>Adicionar ou remover colunas</h3>
   <form id="columnsArray" action="" >
     <fieldset>
-    
       <div class="form-group">
         <div class="custom-control custom-switch">
           <input type="checkbox" class="custom-control-input" disabled="" checked="" id="name">
           <label class="custom-control-label" for="name">nome</label>
         </div>
-        
         <div class="custom-control custom-switch">
           <input type="checkbox" class="custom-control-input" id="symbol" checked="">
           <label class="custom-control-label" for="symbol">simbolo</label>
         </div>
-        
         <div class="custom-control custom-switch">
           <input type="checkbox" class="custom-control-input" id="rank" checked="">
           <label class="custom-control-label" for="rank">ranking</label>
         </div>
-        
         <div class="custom-control custom-switch">
           <input type="checkbox" class="custom-control-input" id="id" checked="">
           <label class="custom-control-label" for="id">id</label>
         </div>
-        
         <div class="custom-control custom-switch">
           <input type="checkbox" class="custom-control-input" id="beginData" checked="">
           <label class="custom-control-label" for="beginData">criação</label>
         </div>
-
         <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" id="lastData" checked="">
+          <input type="checkbox" class="custom-control-input" id="lastData">
           <label class="custom-control-label" for="lastData">ultima atividade</label>
         </div>
-
         <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" id="slug" checked="">
+          <input type="checkbox" class="custom-control-input" id="slug">
           <label class="custom-control-label" for="slug">nome site</label>
         </div>
       </div>
-      
-      <button type="button" class="btn btn-primary" onclick="array()">Atualizar</button>
-
+      <button type="button" class="btn btn-primary" onclick="array()">Atualizar a tabela</button>
     </fieldset>
   </form>
+
+  <br><br><br><br>
 
   <script src="./conexao.js"></script>
 </body>
