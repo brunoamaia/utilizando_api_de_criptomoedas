@@ -85,85 +85,95 @@
         role="button">
         Instalar extensão
       </a>
+
+      <a
+        class="btn btn-primary btn-lg"
+        href="./"
+        role="button">
+        Recarregar página
+      </a>
     </p>
 
+    <br><br>
     <div class="loading-mode"></div>
+    <br>
+
+
+    <h4>Itens por página</h4>
+    <div class="teste"></div>
+  
+    <div class="itensButton"> 
+      <button type="button" class="btn btn-info disabled" onclick="itemsPerPage()">10</button>
+      <button type="button" class="btn btn-info" onclick="itemsPerPage(25)">25</button>
+      <button type="button" class="btn btn-info" onclick="itemsPerPage(50)">50</button>
+      <button type="button" class="btn btn-info" onclick="itemsPerPage(100)">100</button>
+      <button type="button" class="btn btn-info" onclick="itemsPerPage(200)">200</button>
+      <button type="button" class="btn btn-info" onclick="itemsPerPage(500)">500</button>
+    </div>
+    <br>
+  
+    <table class="table table-hover">
+      <thead class="columnsName" >
+        <tr class="table-primary">
+          <th scope="col" onclick="sortDataTable(0)">Nome</th>
+          <th scope="col" onclick="sortDataTable(1)">Simbolo</th>
+          <th scope="col" onclick="sortDataTable(2)">Ranking</th>
+          <th scope="col" onclick="sortDataTable(3)">ID</th>
+          <th scope="col" onclick="sortDataTable(4)">Criação</th>
+        </tr>
+      </thead>
+      <tbody id="autocomplete"> </tbody>
+    </table>
+  
+    <div class="tablePagination"></div>
+  
+    <div class="infos"></div>
+    <br>
+    <div class="resetdata"></div>
+  
+    <br>
+    <h3>Adicionar ou remover colunas</h3>
+    <form id="columnsArray" action="" >
+      <fieldset>
+        <div class="form-group">
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" disabled="" checked="" id="name">
+            <label class="custom-control-label" for="name">nome</label>
+          </div>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="symbol" checked="">
+            <label class="custom-control-label" for="symbol">simbolo</label>
+          </div>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="rank" checked="">
+            <label class="custom-control-label" for="rank">ranking</label>
+          </div>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="id" checked="">
+            <label class="custom-control-label" for="id">id</label>
+          </div>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="beginData" checked="">
+            <label class="custom-control-label" for="beginData">criação</label>
+          </div>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="lastData">
+            <label class="custom-control-label" for="lastData">ultima atividade</label>
+          </div>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="slug">
+            <label class="custom-control-label" for="slug">nome site</label>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="updateNameRow()">Atualizar a tabela</button>
+      </fieldset>
+    </form>
+
+
+
+
+    <br><br><br><br>
+    <script src="./conexao.js"></script>
   </div>
-
-  <h4>Itens por página</h4>
-  <div class="teste"></div>
-
-  <div class="itensButton"> 
-    <button type="button" class="btn btn-info disabled" onclick="itemsPerPage()">10</button>
-    <button type="button" class="btn btn-info" onclick="itemsPerPage(25)">25</button>
-    <button type="button" class="btn btn-info" onclick="itemsPerPage(50)">50</button>
-    <button type="button" class="btn btn-info" onclick="itemsPerPage(100)">100</button>
-    <button type="button" class="btn btn-info" onclick="itemsPerPage(200)">200</button>
-    <button type="button" class="btn btn-info" onclick="itemsPerPage(500)">500</button>
-  </div>
-  <br>
-
-
-  <table class="table table-hover">
-    <thead class="columnsName" >
-      <tr class="table-primary">
-        <th scope="col" onclick="updateTableData(0)">Nome</th>
-        <th scope="col" onclick="updateTableData(1)">Simbolo</th>
-        <th scope="col" onclick="updateTableData(2)">Ranking</th>
-        <th scope="col" onclick="updateTableData(3)">ID</th>
-        <th scope="col" onclick="updateTableData(4)">Criação</th>
-      </tr>
-    </thead>
-    <tbody id="autocomplete"> </tbody>
-  </table>
-
-  <div class="tablePagination"></div>
-
-
-  <div class="infos"></div>
-  <br>
-  <div class="resetdata"></div>
-
-  <br>
-  <h3>Adicionar ou remover colunas</h3>
-  <form id="columnsArray" action="" >
-    <fieldset>
-      <div class="form-group">
-        <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" disabled="" checked="" id="name">
-          <label class="custom-control-label" for="name">nome</label>
-        </div>
-        <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" id="symbol" checked="">
-          <label class="custom-control-label" for="symbol">simbolo</label>
-        </div>
-        <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" id="rank" checked="">
-          <label class="custom-control-label" for="rank">ranking</label>
-        </div>
-        <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" id="id" checked="">
-          <label class="custom-control-label" for="id">id</label>
-        </div>
-        <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" id="beginData" checked="">
-          <label class="custom-control-label" for="beginData">criação</label>
-        </div>
-        <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" id="lastData">
-          <label class="custom-control-label" for="lastData">ultima atividade</label>
-        </div>
-        <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" id="slug">
-          <label class="custom-control-label" for="slug">nome site</label>
-        </div>
-      </div>
-      <button type="button" class="btn btn-primary" onclick="array()">Atualizar a tabela</button>
-    </fieldset>
-  </form>
-
-  <br><br><br><br>
-
-  <script src="./conexao.js"></script>
 </body>
 </html>

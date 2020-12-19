@@ -5,7 +5,7 @@ var dataCall = ''
 let numberOfLines = 10
 let beginTable = 0
 let currentPage = 1
-
+let sortColumn = -1
 
 let statusColumns = {
   name: true,
@@ -23,9 +23,9 @@ if (!sessionStorage.getItem('apiData')) {
 
   let apiKey = {key: '5e58f31a-337d-4b9b-94ac-366510957a93'}
   // Get Fetch Requisition
-  fetch('https://pro-api.coinmarketcap.com/v1/cryptocurrency/map?CMC_PRO_API_KEY='+apiKey.key)
+  fetch('https://pro-api.coinmarketcap.com/v1/cryptocurrency/map?CMC_PRO_API_KEY=' + apiKey.key)
     .then((response) => {
-      if (!response.ok) throw new Error('Erro ao executar a requisição, status ' + response.status);
+      if (!response.ok) throw new Error('Erro ao executar a requisição, status: ' + response.status);
         return response.json();
     })
     .then((api) => {
@@ -110,25 +110,30 @@ function insertInformations(page = 1) {
 
 }
 
-function updateTableData(param) {
+function sortDataTable(param) {
 
   if (param == 0) {
+    sortColumn = 0
     apiData.data.sort(function(a,b) {
       return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
     });
   } else if (param == 1) {
+    sortColumn = 1
     apiData.data.sort(function(a,b) {
       return a.symbol < b.symbol ? -1 : a.symbol > b.symbol ? 1 : 0;
     });
   } else if (param == 2) {
+    sortColumn = 2
     apiData.data.sort(function(a,b) {
       return a.rank < b.rank ? -1 : a.rank > b.rank ? 1 : 0;
     });
   } else if (param == 3) {
+    sortColumn = 3
     apiData.data.sort(function(a,b) {
       return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
     });
   } else if (param == 4) {
+    sortColumn = 4
     apiData.data.sort(function(a,b) {
       return (
         a.first_historical_data < b.first_historical_data ? 
@@ -136,6 +141,7 @@ function updateTableData(param) {
       )
     });
   } else if (param == 5) {
+    sortColumn = 5
     apiData.data.sort(function(a,b) {
       return (
         a.last_historical_data < b.last_historical_data ? 
@@ -143,12 +149,13 @@ function updateTableData(param) {
       )
     });
   } else if (param == 6) {
+    sortColumn = 6
     apiData.data.sort(function(a,b) {
       return a.slug < b.slug ? -1 : a.slug > b.slug ? 1 : 0;
     });
   }
 
-  insertInformations()
+  updateNameRow()
 }
 
 function autoInsertInformations() {
@@ -274,7 +281,7 @@ function itemsPerPage(nlines=10) {
   insertInformations()
 }
 
-function array() {
+function updateNameRow() {
   statusColumns.name = document.querySelector('#name').checked
   statusColumns.symbol = document.querySelector('#symbol').checked
   statusColumns.rank = document.querySelector('#rank').checked
@@ -288,25 +295,39 @@ function array() {
   let label = `<tr class="table-primary">`
 
   if (statusColumns.name) {
-    label += `<th scope="col" onclick="updateTableData(0)">Nome</th>`
+    label += `<th scope="col" onclick="sortDataTable(0)">
+      ${(sortColumn == 0) ?'&#8650;' : ''} Nome
+    </th>`
   } 
   if (statusColumns.symbol) {
-    label += `<th scope="col" onclick="updateTableData(1)">Simbolo</th>`
+    label += `<th scope="col" onclick="sortDataTable(1)">
+      ${(sortColumn == 1) ?'&#8650;' : ''} Simbolo
+    </th>`
   } 
   if (statusColumns.rank) {
-    label += `<th scope="col" onclick="updateTableData(2)">Ranking</th>`
+    label += `<th scope="col" onclick="sortDataTable(2)">
+      ${(sortColumn == 2) ?'&#8650;' : ''} Ranking
+    </th>`
   } 
   if (statusColumns.id) {
-    label += `<th scope="col" onclick="updateTableData(3)">ID</th>`
+    label += `<th scope="col" onclick="sortDataTable(3)">
+      ${(sortColumn == 3) ?'&#8650;' : ''} ID
+    </th>`
   } 
   if (statusColumns.first_historical_data) {
-    label += `<th scope="col" onclick="updateTableData(4)">Criação</th>`
+    label += `<th scope="col" onclick="sortDataTable(4)">
+      ${(sortColumn == 4) ?'&#8650;' : ''} Criação
+    </th>`
   } 
   if (statusColumns.last_historical_data) {
-    label += `<th scope="col" onclick="updateTableData(5)">Ultima Atividade</th>`
+    label += `<th scope="col" onclick="sortDataTable(5)">
+      ${(sortColumn == 5) ?'&#8650;' : ''} Ultima 
+    Atividade</th>`
   } 
   if (statusColumns.slug) {
-    label += `<th scope="col" onclick="updateTableData(6)">Nome site</th>`
+    label += `<th scope="col" onclick="sortDataTable(6)">
+      ${(sortColumn == 6) ?'&#8650;' : ''} Nome 
+    site</th>`
   }
   label += `</tr></thead>`
 
@@ -331,7 +352,9 @@ function asjustes(){
 
   if (dataCall == 'Dados carregados da seção local') {
     document.querySelector('.resetdata').innerHTML = `
-    <button type="button" class="btn btn-info" onclick="removeData()">Remover os dados do Navegador </button>
+    <button type="button" class="btn btn-info" onclick="removeData()">
+      Remover os dados do Navegador
+    </button>
     <br>
   `
   } else {
